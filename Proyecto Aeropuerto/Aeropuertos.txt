@@ -1,0 +1,8 @@
+MTY Aeropuerto_Internacional_de_Monterrey
+MEX Aeropuerto_Internacional_de_la_Ciudad_de_Mexico
+CUN Aeropuerto_Internacional_de_Cancun
+GDL Aeropuerto_Internacional_de_Guadalajara
+TXL Aeropuerto_de_Berlin_Tegel
+NRT Aeropuerto_Internacional_de_Narita
+BOS Aeropuerto_Internacional_Logan_Boston
+ICN Aeropuerto_Internacional_Incheon
