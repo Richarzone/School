@@ -1,6 +1,7 @@
 using namespace std;
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include "Vuelo.h"
 #include "Reservacion.h"
 
@@ -21,54 +22,25 @@ void cargarDatosReservacion(Reservacion listaReservacion[], int &reservaciones)
   }
 }
 
-void mostrarReservaciones(Reservacion listaReservaciones[], Vuelo listaDeVuelos[], int &reservaciones)
+void mostrarReservaciones(Reservacion listaReservacion[], Vuelo listaDeVuelos[], int reservaciones, int cantDeVuelos)
 {
-  for(int cont = 0; cont < reservaciones; cont++)
+  for(int i = 0; i < cantDeVuelos; i++)
   {
-    //if(listaDeVuelos[cont].getNumeroDeVuelo() == listaReservaciones[cont].getNumeroDeVuelo())
-    
-      if(listaReservaciones[cont].getNumeroDeVuelo() == "AMX0125")
+    cout << "Pasajero con numero de vuelo " << listaDeVuelos[i].getNumeroDeVuelo() << endl;
+    for(int cont = 0; cont < reservaciones; cont++)
+    {
+      if(listaReservacion[cont].getNumeroDeVuelo() == listaDeVuelos[i].getNumeroDeVuelo())
       {
-        cout << "Pasajeros con numero de vuelo AMX0125" << endl;
-        cout << listaReservaciones[cont].getIdPasajero() << " ";
-        cout << listaReservaciones[cont].getNombrePasajero() << " "; 
-        cout << listaReservaciones[cont].getNumeroDeVuelo() << endl;
+        cout << listaReservacion[cont].getIdPasajero() << " ";
+        cout << listaReservacion[cont].getNombrePasajero() << " "; 
+        cout << listaReservacion[cont].getNumeroDeVuelo() << endl;
       }
-    
-    //if(listaDeVuelos[cont].getNumeroDeVuelo() == listaReservaciones[cont].getNumeroDeVuelo())
-    
-      if(listaReservaciones[cont].getNumeroDeVuelo() == "VOI0453")
-      {
-        cout << "Pasajeros con numero de vuelo VOI0453" << endl; 
-        cout << listaReservaciones[cont].getIdPasajero() << " ";
-        cout << listaReservaciones[cont].getNombrePasajero() << " "; 
-        cout << listaReservaciones[cont].getNumeroDeVuelo() << endl;
-      }
-    
-    //if(listaDeVuelos[cont].getNumeroDeVuelo() == listaReservaciones[cont].getNumeroDeVuelo())
-    
-      if(listaReservaciones[cont].getNumeroDeVuelo() == "JAL0951")
-      {
-        cout << "Pasajeros con numero de vuelo JAL0951" << endl;
-        cout << listaReservaciones[cont].getIdPasajero() << " ";
-        cout << listaReservaciones[cont].getNombrePasajero() << " "; 
-        cout << listaReservaciones[cont].getNumeroDeVuelo() << endl;
-      }
-    
-    //if(listaDeVuelos[cont].getNumeroDeVuelo() == listaReservaciones[cont].getNumeroDeVuelo())
-    
-      if(listaReservaciones[cont].getNumeroDeVuelo() == "AAL0753")
-      {
-        cout << "Pasajeros con numero de vuelo AAL0753" << endl;
-        cout << listaReservaciones[cont].getIdPasajero() << " ";
-        cout << listaReservaciones[cont].getNombrePasajero() << " "; 
-        cout << listaReservaciones[cont].getNumeroDeVuelo() << endl;
-      }
-    
+    }
+    cout << "-------------------------------------" << endl;
   }
 }
 
-void realizarReservacion(Reservacion listaReservaciones[], int &reservaciones)
+void realizarReservacion(Reservacion listaReservacion[], int &reservaciones)
 {
   string id, nombre, numVuelo;
   string respuestaLoop = "si";
@@ -82,9 +54,9 @@ void realizarReservacion(Reservacion listaReservaciones[], int &reservaciones)
     cout << "Ingrese el ID de la persona" << endl;
     cin >> id;
 
-    listaReservaciones[reservaciones].setIdPasajero(id);
-    listaReservaciones[reservaciones].setNombrePasajero(nombre);
-    listaReservaciones[reservaciones].setNumeroDeVuelo(numVuelo);
+    listaReservacion[reservaciones].setIdPasajero(id);
+    listaReservacion[reservaciones].setNombrePasajero(nombre);
+    listaReservacion[reservaciones].setNumeroDeVuelo(numVuelo);
     reservaciones++;
 
     cout << "Desea hacer otra reservacion?" << endl;
@@ -92,7 +64,7 @@ void realizarReservacion(Reservacion listaReservaciones[], int &reservaciones)
   }
 }
 
-void cargaDatosVuelos(Vuelo listaDeVuelos[], int &cantVuelos)
+void cargaDatosVuelos(Vuelo listaDeVuelos[], Reservacion listaReservacion[], int &cantVuelos)
 {
   ifstream fileVuelos;
   string numVuelo, origen, destino;
@@ -182,16 +154,16 @@ int main()
 {
   Reservacion listaReservacion[20];
   Vuelo listaDeVuelos[10];
-  Vuelo listaPorVuelos[10];
   int cantVuelos, reservaciones;
   char respuesta;
   string menuLoop = "si";
   string reservResp;
 
-  cargaDatosVuelos(listaDeVuelos, cantVuelos);
+  cargaDatosVuelos(listaDeVuelos, listaReservacion, cantVuelos);
   cargarDatosReservacion(listaReservacion, reservaciones);
 
   cout << "Bienvenido" << endl;
+  cout << endl;
 
   while (menuLoop == "si")
   {
@@ -217,12 +189,13 @@ int main()
         realizarReservacion(listaReservacion, reservaciones);
         break;
       case 'd':
-        mostrarReservaciones(listaReservacion, listaDeVuelos, reservaciones);
+        mostrarReservaciones(listaReservacion, listaDeVuelos, reservaciones, cantVuelos);
         break;
       case 'e':
         agregarVuelo(listaDeVuelos, cantVuelos);
         break;
       case 'x':
+        cout << "Vuelva pronto" << endl;
         exit(0);
         break;
     }
