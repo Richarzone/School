@@ -41,8 +41,6 @@ int main()
       else
       {
         fileEnvios >> costo >> largo >> ancho >> cargoAdicional;
-        Persona remitente(nombreRem, estadoRem, ciudadRem, cpRem);
-        Persona destinatario(nombreDes, estadoDes, ciudadDes, cpDes);
         listaEnvios[i] = new Sobre(remitente, destinatario, costo, largo, ancho, cargoAdicional);
       }
       cout << "Remitente:" << endl; remitente.imprimir();
